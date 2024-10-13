@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('districts', function (Blueprint $table) {
+        Schema::create('papers', function (Blueprint $table) {
             $table->id();
-            $table->string('district_name')->comment('Name of districts of Assam where institutes are located.');
+            $table->unsignedBigInteger('subject_id')->index('sub-paper')->comment('Paper of a subject.');
+            $table->string('paper_name')->comment('Name of a subject paper.');
             $table->timestamps();
+            $table->foreign('subject_id')->references('id')->on('subjects');
         });
     }
 
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('districts');
+        Schema::dropIfExists('papers');
     }
 };
